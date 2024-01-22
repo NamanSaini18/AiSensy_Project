@@ -1,3 +1,4 @@
+if (process.env.NODE_ENV != "prodcution") require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -7,7 +8,7 @@ const app = express();
 const PORT = 5000;
 
 mongoose.
-  connect("mongodb+srv://saininaman1103:8jNG5WEQ9zZwXywe@cluster0.vcll1jk.mongodb.net/")
+  connect(process.env.DB_URL)
   .then(() => {
     console.log("DB Connected");
   })
@@ -22,14 +23,12 @@ app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, "views"));
 app.use(express.static("public"));
 
-// app.get("/", (req, res) => {
-//   res.send("Hello World");
-// });
+
 
 app.use(contactListRouter);
 app.use(importRouter);
 
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
   console.log("Server is running at port " + PORT);
 });
