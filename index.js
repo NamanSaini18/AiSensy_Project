@@ -7,7 +7,7 @@ const app = express();
 const PORT = 5000;
 
 mongoose.
-  connect("mongodb://127.0.0.1:27017/contactDB")
+  connect("mongodb+srv://saininaman1103:8jNG5WEQ9zZwXywe@cluster0.vcll1jk.mongodb.net/")
   .then(() => {
     console.log("DB Connected");
   })
