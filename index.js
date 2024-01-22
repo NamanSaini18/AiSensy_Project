@@ -5,7 +5,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const app = express();
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 mongoose.
   connect(process.env.DB_URL)
@@ -29,6 +29,6 @@ app.use(contactListRouter);
 app.use(importRouter);
 
 
-app.listen(process.env.PORT, () => {
+app.listen(PORT, () => {
   console.log("Server is running at port " + PORT);
 });

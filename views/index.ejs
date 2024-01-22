@@ -22,28 +22,39 @@
         </div>
         <div class="col-md-6">
           <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
-            <!-- <div>
-              <ul class="nav nav-pills">
-                <li class="nav-item">
-                  <a aria-current="page" href="#" class="router-link-active router-link-exact-active nav-link active"
-                    data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="List"
-                    aria-label="List">
-                    <i class="bx bx-list-ul"></i>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link" data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                    data-bs-original-title="Grid" aria-label="Grid"><i class="bx bx-grid-alt"></i></a>
-                </li>
-              </ul>
-            </div> -->
+            
             <div>
-              <form action="/upload" method="post" enctype="multipart/form-data">
-                <label for="file">Choose a file:</label>
-                <input type="file" id="file" name="file" accept=".csv, .xls, .xlsx">
-                <br>
-                <button type="submit">Upload</button>
-              </form>
+
+
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Import
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/upload" method="post" enctype="multipart/form-data">
+                      <div class="modal-body">
+                        <label for="file">Import Contacts:</label>
+                        <input type="file" id="file" name="file" accept=".csv, .xls, .xlsx">
+                        <br>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
             </div>
             <div>
               <a href="#" data-bs-toggle="modal" data-bs-target=".add-new" class="btn btn-primary"><i
@@ -84,7 +95,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% contactListData.map(({name, contactNumber, email, tags, source})=> { %>
+                  <!-- <%# contactListData.map(({name, contactNumber, email, tags, source})=> { %>
                     <tr>
                       <th scope="row" class="ps-4">
                         <div class="form-check font-size-16"><input type="checkbox" class="form-check-input"
@@ -92,51 +103,80 @@
                         </div>
                       </th>
                       <td><a href="#" class="text-body">
-                          <%=name%>
+                          <%#=name%>
                         </a></td>
                       <td>
-                        <%=contactNumber%>
+                        <%#=contactNumber%>
                       </td>
                       <td>
-                        <%=email%>
+                        <%#=email%>
                       </td>
                       <td><span class="badge badge-soft-success mb-0">
-                          <%=tags[0]%>
+                          <%#=tags[0]%>
                         </span></td>
                       <td>
-                        <%=source%>
+                        <%#=source%>
                       </td>
                     </tr>
-                    <% }) %>
+                    <%# }) %> -->
+
+                  <% for (let i=startIndex - 1; i < endIndex; i++) { %>
+                    <tr>
+                      <th scope="row" class="ps-4">
+                        <div class="form-check font-size-16"><input type="checkbox" class="form-check-input"
+                            id="contacusercheck1" /><label class="form-check-label" for="contacusercheck1"></label>
+                        </div>
+                      </th>
+                      <td><a href="#" class="text-body">
+                          <%=contactListData[i].name%>
+                        </a></td>
+                      <td>
+                        <%=contactListData[i].contactNumber%>
+                      </td>
+                      <td>
+                        <%=contactListData[i].email%>
+                      </td>
+                      <td><span class="badge badge-soft-success mb-0">
+                          <%=contactListData[i].tags[0]%>
+                        </span></td>
+                      <td>
+                        <%=contactListData[i].source%>
+                      </td>
+                    </tr>
+                    <% } %>
+
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-      <div class="row g-0 align-items-center pb-4">
-        <div class="col-sm-6">
-          <div>
-            <p class="mb-sm-0">Showing 1 to 10 of 266 entries</p>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="float-sm-end">
-            <ul class="pagination mb-sm-0">
-              <li class="page-item disabled">
-                <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-              </li>
-              <li class="page-item active"><a href="#" class="page-link">1</a></li>
-              <li class="page-item"><a href="#" class="page-link">2</a></li>
-              <li class="page-item"><a href="#" class="page-link">3</a></li>
-              <li class="page-item"><a href="#" class="page-link">4</a></li>
-              <li class="page-item"><a href="#" class="page-link">5</a></li>
-              <li class="page-item">
-                <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
-              </li>
-            </ul>
-          </div>
-        </div>
+      <div>
+        <% if (currentPage> 1) { %>
+          <a href="?page=<%= currentPage - 1 %>&perPage=<%= perPage %>">Previous</a>
+          <% } %>
+
+            <span>
+              <%= startIndex %> - <%= endIndex %> of <%= totalItems %> entries
+            </span>
+
+            <% if (currentPage < totalPages) { %>
+              <a href="?page=<%= currentPage + 1 %>&perPage=<%= perPage %>">Next</a>
+              <% } %>
+      </div>
+
+
+      
+
+      <div>
+        <span>Entries per page: </span>
+        <select onchange="location = this.value;">
+          <% perPageOptions.forEach(option=> { %>
+            <option value="?page=1&perPage=<%= option %>" <%=option===perPage ? 'selected' : '' %>>
+              <%= option %>
+            </option>
+            <% }); %>
+        </select>
       </div>
     </div>
 
