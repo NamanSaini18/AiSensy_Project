@@ -1,0 +1,21 @@
+{
+  "name": "contactlist",
+  "version": "1.0.0",
+  "description": "Project 1 - Import Feature",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anuj Ruhela",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "csv-parser": "^3.0.0",
+    "ejs": "^3.1.9",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.2",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.1.0",
+    "multer": "^1.4.5-lts.1"
+  }
+}
