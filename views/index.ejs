@@ -37,9 +37,11 @@
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Import your File Here</h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
+                    
                     <form action="/upload" method="post" enctype="multipart/form-data">
                       <div class="modal-body">
                         <label for="file">Import Contacts:</label>
@@ -64,15 +66,7 @@
               <a href="#" data-bs-toggle="modal" data-bs-target=".add-new" class="btn btn-primary"><i
                   class="bx bx-plus me-1"></i>Download</a>
             </div>
-            <!-- <div class="dropdown">
-              <a class="btn btn-link text-muted py-1 font-size-16 shadow-none dropdown-toggle" href="#" role="button"
-                data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-horizontal-rounded"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </div> -->
+           
           </div>
         </div>
       </div>
@@ -95,30 +89,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <%# contactListData.map(({name, contactNumber, email, tags, source})=> { %>
-                    <tr>
-                      <th scope="row" class="ps-4">
-                        <div class="form-check font-size-16"><input type="checkbox" class="form-check-input"
-                            id="contacusercheck1" /><label class="form-check-label" for="contacusercheck1"></label>
-                        </div>
-                      </th>
-                      <td><a href="#" class="text-body">
-                          <%#=name%>
-                        </a></td>
-                      <td>
-                        <%#=contactNumber%>
-                      </td>
-                      <td>
-                        <%#=email%>
-                      </td>
-                      <td><span class="badge badge-soft-success mb-0">
-                          <%#=tags[0]%>
-                        </span></td>
-                      <td>
-                        <%#=source%>
-                      </td>
-                    </tr>
-                    <%# }) %> -->
+                  
+
+
 
                   <% for (let i=startIndex - 1; i < endIndex; i++) { %>
                     <tr>
@@ -166,7 +139,7 @@
       </div>
 
 
-      
+
 
       <div>
         <span>Entries per page: </span>

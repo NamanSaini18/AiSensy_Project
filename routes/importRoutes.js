@@ -28,20 +28,21 @@ router.post('/upload', upload.single('file'), async (req, res) => {
   res.status(200).redirect("/");
 });
 
+
 // Function to parse Excel file
 async function parseExcel(fileBuffer) {
   const workbook = new excel.Workbook();
   await workbook.xlsx.load(fileBuffer);
 
-  const sheet = workbook.getWorksheet(1); // Assuming data is in the first sheet
+  const sheet = workbook.getWorksheet(1); 
   console.log(sheet);
   sheet.eachRow(async (row, rowNumber) => {
     if (rowNumber !== 1) { // Skip header
       const rowData = row.values;
 
-      // Create a new instance of the Mongoose model and save it to MongoDB
+ 
       await ContactList.create({
-        name: rowData[ 1 ], // Adjust these indices based on your Excel sheet structure
+        name: rowData[ 1 ], 
         contactNumber: rowData[ 2 ],
         email: rowData[ 3 ],
         tags: rowData[ 4 ],
