@@ -67,4 +67,46 @@ async function parseCSV(fileBuffer) {
   await ContactList.insertMany(results);
 }
 
+router.post("/download", async (req, res) => {
+  try {
+    const selectedContactIds = req.body.selectedContactIds;
+
+    const selectedContacts = await ContactList.find({ _id: { $in: selectedContactIds } });
+
+    const workbook = new excel.Workbook();
+    const worksheet = workbook.addWorksheet("SelectedContacts");
+
+    worksheet.columns = [
+      { header: "Name", key: "name", width: 20 },
+      { header: "Contact Number", key: "contactNumber", width: 15 },
+      { header: "Email", key: "email", width: 25 },
+      { header: "Tags", key: "tags", width: 15 },
+      { header: "Source", key: "source", width: 15 },
+      // Add other fields as needed
+    ];
+
+    selectedContacts.forEach((contact) => {
+      worksheet.addRow({
+        name: contact.name,
+        contactNumber: contact.contactNumber,
+        email: contact.email,
+        tags: contact.tags.join(", "), // Assuming tags is an array
+        source: contact.source,
+        // Add other fields as needed
+      });
+    });
+
+    res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    res.setHeader("Content-Disposition", "attachment; filename=selectedContacts.xlsx");
+
+    await workbook.xlsx.write(res);
+
+    res.status(200).end();
+  } catch (error) {
+    console.error("Error downloading contacts:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+
 module.exports = router;
